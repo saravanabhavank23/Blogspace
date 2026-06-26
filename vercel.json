@@ -32,19 +32,19 @@
       "dest": "frontend/js/$1"
     },
     {
-      "src": "/feed",
+      "src": "/feed.html",
       "dest": "frontend/feed.html"
     },
     {
-      "src": "/createpost",
+      "src": "/createpost.html",
       "dest": "frontend/createpost.html"
     },
     {
-      "src": "/edit-post",
+      "src": "/edit-post.html",
       "dest": "frontend/edit-post.html"
     },
     {
-      "src": "/post",
+      "src": "/post.html",
       "dest": "frontend/post.html"
     },
     {
