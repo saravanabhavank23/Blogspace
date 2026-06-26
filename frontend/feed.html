@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Feed</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+    <h2>Blog Space</h2>
+
+    <div class="nav-right">
+        <button class="btn"
+            onclick="window.location.href='createpost.html'">
+            Create Post
+        </button>
+
+        <button class="btn-outline"
+            onclick="logout()">
+            Logout
+        </button>
+    </div>
+</nav>
+<div class="hero">
+    <h1>Welcome to Blog Space</h1>
+    <p>Read stories, share ideas, and connect with others.</p>
+</div>
+
+<div class="feed-container">
+    <div id="postsList"></div>
+</div>
+
+
+    <script src="js/app.js"></script>
+    <script src="js/feed.js"></script>
+
+    <footer class="footer">
+    Blog Space © 2026
+    </footer>
+</body>
+</html>

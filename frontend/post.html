@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Post</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <button onclick="window.location.href='feed.html'">
+        Back to Feed
+    </button>
+
+    <div class="editor-card">
+
+    <h1 id="postTitle">
+        Loading...
+    </h1>
+
+    <p id="postMeta"></p>
+
+    <div id="postContent"></div>
+
+</div>
+    <h2 style="margin-top:30px;">
+    Comments
+    </h2>
+
+<div class="editor-card">
+
+    <h3>Add Comment</h3>
+
+<form id="commentForm">
+    <textarea
+        id="commentText"
+        placeholder="Write a comment..."
+        required
+    ></textarea>
+
+    <br><br>
+
+    <button type="submit">
+        Add Comment
+    </button>
+</form>
+</div>
+
+<hr>
+
+    <div id="commentsContainer">
+        Loading comments...
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/post.js"></script>
+
+</body>
+</html>
