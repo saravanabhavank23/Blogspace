@@ -27,6 +27,11 @@ exports.getPost = async (req, res) => {
 
 // CREATE post (logged-in users only)
 exports.createPost = async (req, res) => {
+
+  console.log("===== CREATE POST =====");
+  console.log("req.file:", req.file);
+  console.log("req.body:", req.body);
+
   try {
     const { title, content } = req.body;
 
@@ -34,9 +39,19 @@ exports.createPost = async (req, res) => {
       return res.status(400).json({ message: 'Title and content are required.' });
     }
 
+    const image = req.files?.image
+        ? req.files.image[0].path
+        : '';
+
+    const pdf = req.files?.pdf
+        ? req.files.pdf[0].path
+        : '';
+
     const post = await Post.create({
       title,
       content,
+      image: req.file ? req.file.path : '',
+      pdf: req.file ? req.file.path : '',
       author: req.user.userId
     });
 

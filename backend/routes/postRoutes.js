@@ -1,3 +1,4 @@
+const upload = require('../middleware/upload');
 const express = require('express');
 const router = express.Router();
 const {
@@ -11,7 +12,10 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 router.get('/', getPosts);
 router.get('/:id', getPost);
-router.post('/', authMiddleware, createPost);
+router.post('/', authMiddleware, upload.fields([
+    { name: 'image', maxCount: 1 },
+    { name: 'pdf', maxCount: 1 }
+]), createPost);
 router.put('/:id', authMiddleware, updatePost);
 router.delete('/:id', authMiddleware, deletePost);
 

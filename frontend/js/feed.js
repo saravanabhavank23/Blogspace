@@ -16,6 +16,17 @@ async function loadPosts() {
     listEl.innerHTML = posts.map(post => `
   <div class="post-card" onclick="window.location.href='post.html?id=${post._id}'">
 
+  ${
+    post.image
+    ? `
+        <img
+            src="${post.image}"
+            class="post-image"
+            alt="Post Image">
+      `
+    : ''
+    }
+
     <h3>
       <a href="post.html?id=${post._id}">
         ${escapeHtml(post.title)}

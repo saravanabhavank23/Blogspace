@@ -12,6 +12,25 @@ async function createPost(e) {
     const content =
         document.getElementById('content').value;
 
+    const image =
+        document.getElementById('image').files[0];
+
+    const pdf =
+    document.getElementById('pdf').files[0];
+
+    const formData = new FormData();
+
+        formData.append('title', title);
+        formData.append('content', content);
+
+        if (image) {
+            formData.append('image', image);
+        }
+
+        if (pdf) {
+            formData.append('pdf', pdf);
+        }
+
     try {
 
         const response = await fetch(
@@ -20,15 +39,11 @@ async function createPost(e) {
                 method: 'POST',
 
                 headers: {
-                    'Content-Type': 'application/json',
                     'Authorization':
                         `Bearer ${getToken()}`
                 },
 
-                body: JSON.stringify({
-                    title,
-                    content
-                })
+                body: formData
             }
         );
 
