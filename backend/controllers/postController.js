@@ -1,4 +1,24 @@
 const Post = require('../models/Post');
+const cloudinary = require('../config/cloudinary');
+const streamifier = require('streamifier');
+
+const uploadToCloudinary = (buffer, folder, resourceType) => {
+    return new Promise((resolve, reject) => {
+
+        const stream = cloudinary.uploader.upload_stream(
+            {
+                folder,
+                resource_type: resourceType
+            },
+            (error, result) => {
+                if (error) return reject(error);
+                resolve(result);
+            }
+        );
+
+        streamifier.createReadStream(buffer).pipe(stream);
+    });
+};
 
 // GET all posts (public)
 exports.getPosts = async (req, res) => {
@@ -29,7 +49,7 @@ exports.getPost = async (req, res) => {
 exports.createPost = async (req, res) => {
 
   console.log("===== CREATE POST =====");
-  console.log("req.file:", req.file);
+  console.log("req.files:", req.files);
   console.log("req.body:", req.body);
 
   try {
@@ -39,19 +59,45 @@ exports.createPost = async (req, res) => {
       return res.status(400).json({ message: 'Title and content are required.' });
     }
 
-    const image = req.files?.image
-        ? req.files.image[0].path
-        : '';
+    let image = '';
 
-    const pdf = req.files?.pdf
-        ? req.files.pdf[0].path
-        : '';
+    if (req.files?.image) {
+
+        const result = await uploadToCloudinary(
+            req.files.image[0].buffer,
+            'blogspace/images',
+            'image'
+        );
+
+        image = result.secure_url;
+    }
+
+    // const image = req.files?.image
+    //     ? req.files.image[0].path
+    //     : '';
+
+    let pdf = '';
+
+    if (req.files?.pdf) {
+
+        const result = await uploadToCloudinary(
+            req.files.pdf[0].buffer,
+            'blogspace/pdfs',
+            'raw'
+        );
+
+        pdf = result.secure_url;
+    }
+
+    // const pdf = req.files?.pdf
+        // ? req.files.pdf[0].path
+        // : '';
 
     const post = await Post.create({
       title,
       content,
-      image: req.file ? req.file.path : '',
-      pdf: req.file ? req.file.path : '',
+      image,
+      pdf,
       author: req.user.userId
     });
 
